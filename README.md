@@ -8,9 +8,23 @@
 
 user-service
 
++ 属于eureka-client
+
++ user-service将服务注册到Eureka注册中心。
+
 #### 2. 服务调用者
 
 consumer-demo
+
++ 属于eureka-client 
+
++ 通过Eureka注册中心动态获取服务，当然也需要先注册到Eureka。
+
+**注** 所有的eureka-client既可作为服务提供者，也调用其他服务。
+
+#### 3. Eureka注册中心
+
+eureka-server管理所有服务。
 
 
 
