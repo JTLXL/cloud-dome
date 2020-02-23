@@ -2,6 +2,7 @@ package com.jtl;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
@@ -10,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
  * @date 2020/2/22 20:13:07
  * @description
  */
+@EnableDiscoveryClient
 @SpringBootApplication
 public class ConsumerApplication {
 
