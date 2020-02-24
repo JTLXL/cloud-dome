@@ -26,7 +26,11 @@ consumer-demo
 
 eureka-server管理所有服务。
 
++ 配置多个Eureka服务端集群启动，高可用的Eureka服务。
 
+#### 4. 负载均衡Robbin
+
+使用Robbin组件实现负载均衡。
 
 
 
