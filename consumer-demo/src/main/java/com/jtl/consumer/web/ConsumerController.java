@@ -1,6 +1,9 @@
 package com.jtl.consumer.web;
 
 import com.jtl.consumer.pojo.User;
+import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
@@ -21,6 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("consumer")
+@DefaultProperties(defaultFallback = "defaultFallback")
 public class ConsumerController {
 
     @Autowired
@@ -65,11 +69,31 @@ public class ConsumerController {
      * @param id
      * @return
      */
-    @GetMapping("{id}")
+    /*@GetMapping("{id}")
     public User queryById(@PathVariable("id") Long id) {
         String url = "http://user-service/user/" + id;
         User user = restTemplate.getForObject(url, User.class);
         return user;
+    }*/
+
+    @GetMapping("{id}")
+    // @HystrixCommand(fallbackMethod = "queryByIdFallback")
+    /*@HystrixCommand(commandProperties = {
+            @HystrixProperty(name="execution.isolation.thread.timeoutInMilliseconds",value = "3000")
+    })*/
+    @HystrixCommand
+    public String queryById(@PathVariable("id") Long id) {
+        String url = "http://user-service/user/" + id;
+        String user = restTemplate.getForObject(url, String.class);
+        return user;
+    }
+
+    public String queryByIdFallback(Long id) {
+        return "不好意思，服务器太拥挤了！";
+    }
+
+    public String defaultFallback() {
+        return "不好意思，服务器太拥挤了！";
     }
 
 }

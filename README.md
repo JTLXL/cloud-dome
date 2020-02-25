@@ -32,6 +32,10 @@ eureka-server管理所有服务。
 
 使用Robbin组件实现负载均衡。
 
+#### 5. Hystrix
+
+利用Hystrix做线程隔离与服务降级。
+
 
 
 
